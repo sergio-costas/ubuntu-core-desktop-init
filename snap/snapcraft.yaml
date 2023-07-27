@@ -57,9 +57,7 @@ parts:
       cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/bin/
 
   launcher:
-    source: .
-    plugin: nil
-    override-build: |
-      set -eux
-      mkdir -p $CRAFT_PART_INSTALL/bin
-      cp snap/local/launcher $CRAFT_PART_INSTALL/bin/
+    source: snap/local
+    plugin: dump
+    organize:
+      launcher: bin/
