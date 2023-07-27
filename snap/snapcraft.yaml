@@ -46,6 +46,7 @@ parts:
   ubuntu-core-desktop-init:
     after: [flutter-git]
     source: https://github.com/canonical/ubuntu-desktop-provision
+    source-commit: eae991063f94ee68b2e3dc9c20774bb7d56188b1
     source-type: git
     plugin: nil
     override-build: |
