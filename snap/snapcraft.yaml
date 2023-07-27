@@ -1,0 +1,57 @@
+name: ubuntu-core-desktop-init
+version: git
+summary: Ubuntu Core Desktop Init
+description: |
+  Ubuntu Core Desktop Init.
+grade: stable
+confinement: strict
+base: core22
+issues: https://github.com/canonical/ubuntu-core-desktop-init/issues
+contact: https://github.com/canonical/ubuntu-core-desktop-init/issues
+
+apps:
+  ubuntu-core-desktop-init:
+    command: bin/ubuntu_init
+    command-chain: [bin/launcher]
+    environment:
+      LOG_LEVEL: debug
+    extensions: [gnome]
+    plugs:
+      - account-control
+      - timezone-control
+
+parts:
+  flutter-git:
+    source: https://github.com/flutter/flutter.git
+    source-tag: 3.10.6
+    source-depth: 1
+    plugin: nil
+    override-build: |
+      mkdir -p $CRAFT_PART_INSTALL/usr/bin
+      mkdir -p $CRAFT_PART_INSTALL/usr/libexec
+      cp -r $CRAFT_PART_SRC $CRAFT_PART_INSTALL/usr/libexec/flutter
+      ln -s $CRAFT_PART_INSTALL/usr/libexec/flutter/bin/flutter $CRAFT_PART_INSTALL/usr/bin/flutter
+      $CRAFT_PART_INSTALL/usr/bin/flutter doctor
+    build-packages:
+      - clang
+      - cmake
+      - curl
+      - libgtk-3-dev
+      - ninja-build
+      - unzip
+      - xz-utils
+      - zip
+    override-prime: ''
+
+  ubuntu-core-desktop-init:
+    after: [flutter-git]
+    source: https://github.com/canonical/ubuntu-desktop-provision
+    source-type: git
+    plugin: nil
+    override-build: |
+      set -eux
+      mkdir -p $CRAFT_PART_INSTALL/bin/lib
+      cd packages/ubuntu_init
+      flutter pub get
+      flutter build linux --release -v
+      cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/bin/
