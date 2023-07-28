@@ -62,3 +62,9 @@ parts:
     plugin: dump
     organize:
       launcher: bin/
+
+slots:
+  dbus-name:
+    interface: dbus
+    bus: session
+    name: com.canonical.ubuntu_init
