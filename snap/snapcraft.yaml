@@ -18,6 +18,7 @@ apps:
     extensions: [gnome]
     plugs:
       - account-control
+      - hostname-control
       - timezone-control
 
 parts:
