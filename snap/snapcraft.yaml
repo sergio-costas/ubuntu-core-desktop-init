@@ -19,6 +19,7 @@ apps:
     plugs:
       - account-control
       - hostname-control
+      - locale-control
       - timezone-control
 
 parts:
