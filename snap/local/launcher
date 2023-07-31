@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # TODO: switch to a config file
-"$@" --routes=timezone,identity
+"$@" --pages=timezone,identity
