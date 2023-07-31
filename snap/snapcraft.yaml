@@ -12,7 +12,6 @@ contact: https://github.com/canonical/ubuntu-core-desktop-init/issues
 apps:
   ubuntu-core-desktop-init:
     command: bin/ubuntu_init
-    command-chain: [bin/launcher]
     environment:
       LOG_LEVEL: debug
     extensions: [gnome]
@@ -53,16 +52,11 @@ parts:
     override-build: |
       set -eux
       mkdir -p $CRAFT_PART_INSTALL/bin/lib
+      cp $CRAFT_PART_SRC/assets/ubuntu-provision.conf vendor/ubuntu-desktop-provision/packages/ubuntu_init/assets/
       cd vendor/ubuntu-desktop-provision/packages/ubuntu_init
       flutter pub get
       flutter build linux --release -v
       cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/bin/
-
-  launcher:
-    source: snap/local
-    plugin: dump
-    organize:
-      launcher: bin/
 
 slots:
   dbus-name:

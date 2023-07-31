@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# TODO: switch to a config file
-"$@" --pages=timezone,identity
