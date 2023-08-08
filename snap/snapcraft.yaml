@@ -8,6 +8,9 @@ confinement: strict
 base: core22
 issues: https://github.com/canonical/ubuntu-core-desktop-init/issues
 contact: https://github.com/canonical/ubuntu-core-desktop-init/issues
+architectures:
+  - build-on: amd64
+  - build-on: arm64
 
 apps:
   ubuntu-core-desktop-init:
