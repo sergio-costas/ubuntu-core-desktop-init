@@ -57,7 +57,9 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/bin/lib
       cp $CRAFT_PROJECT_DIR/assets/ubuntu-provision.conf vendor/ubuntu-desktop-provision/packages/ubuntu_init/assets/
       cp $CRAFT_PROJECT_DIR/assets/mascot.png vendor/ubuntu-desktop-provision/packages/ubuntu_init/assets/
-      cd vendor/ubuntu-desktop-provision/packages/ubuntu_init
+      cd vendor/ubuntu-desktop-provision
+      patch -p1 < $CRAFT_PROJECT_DIR/patches/fix_password.diff
+      cd packages/ubuntu_init
       # work around pub get stack overflow # https://github.com/dart-lang/sdk/issues/51068#issuecomment-1396588253
       set +e
       dart pub get
