@@ -54,7 +54,7 @@ parts:
     source-type: git
     plugin: nil
     override-build: |
-      (mv vendor/ubuntu-desktop-provision/packages/subiquity_client . && cd vendor && rm -rf * && git clone https://github.com/sergio-costas/ubuntu-desktop-provision.git && cd ubuntu-desktop-provision && git checkout add-login-on-end && mv ../../subiquity_client packages && cd packages/ubuntu_wizard && flutter pub get)
+      (cd vendor && rm -rf * && git clone https://github.com/sergio-costas/ubuntu-desktop-provision.git && cd ubuntu-desktop-provision && git checkout add-login-on-end && cd packages/ubuntu_wizard && flutter pub get)
       mkdir -p $CRAFT_PART_INSTALL/bin/lib
       cp $CRAFT_PROJECT_DIR/assets/ubuntu-provision.conf vendor/ubuntu-desktop-provision/packages/ubuntu_init/assets/
       cp $CRAFT_PROJECT_DIR/assets/mascot.png vendor/ubuntu-desktop-provision/packages/ubuntu_init/assets/
